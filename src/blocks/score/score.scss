@@ -1,0 +1,19 @@
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 15px;
+  gap: 15px;
+  &__title {
+    font-size: 22px;
+  }
+
+  &__counter {
+    font-size: 55px;
+    font-weight: 700;
+  }
+}

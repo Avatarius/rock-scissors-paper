@@ -1,0 +1,16 @@
+.header {
+  padding: 35px 25px;
+  border: 1px solid rgba(255 255 255 / 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  &__title {
+    font-size: 35px;
+    font-weight: 400;
+    max-inline-size: 200px;
+    text-transform: uppercase;
+  }
+}
+
+

@@ -1,0 +1,33 @@
+.gesture {
+  appearance: none;
+  border: 2px solid #fff;
+  background-color: transparent;
+  inline-size: 200px;
+  block-size: 200px;
+  border-radius: 100%;
+  transition: background-color 0.15s linear, scale 0.15s linear;
+
+
+  & svg {
+    transition: fill 0.15s linear;
+    inline-size: 65%;
+    block-size: 65%;
+    pointer-events: none;
+  }
+
+
+
+
+  /* &_paper {
+    grid-area: paper;
+  }
+
+  &_scissors {
+    grid-area: scissors;
+  }
+
+  &_rock {
+    grid-area: rock;
+    justify-self: center;
+  } */
+}
