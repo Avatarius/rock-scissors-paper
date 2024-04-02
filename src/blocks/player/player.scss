@@ -1,0 +1,41 @@
+.player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  inline-size: 100%;
+  transition: opacity 0.15s 0.15s linear;
+
+  &__text {
+    font-size: 23px;
+    text-transform: uppercase;
+    text-align: center;
+
+    &_left {
+      opacity: 0;
+      transition: opacity 0.15s linear;
+    }
+
+    &_visible {
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    scale: 1;
+
+    &_animated {
+      transition: translate 0.2s linear;
+    }
+  }
+
+  &_right {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+  }
+
+  &_visible {
+    opacity: 1;
+  }
+}

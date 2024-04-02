@@ -1,30 +1,73 @@
 import '../pages/index.scss';
+import paper from '../images/paper.svg';
+import rock from '../images/rock.svg';
+import scissors from '../images/scissors.svg';
 
-
-const startContainer = document.querySelector<HTMLDivElement>('.start')!;
+const startContainer = document.querySelector<HTMLDivElement>('.start-screen')!;
 const board = document.querySelector<HTMLDivElement>('.board')!;
-const choiceIconMine = document.querySelector<HTMLDivElement>('.choice__icon_mine')!;
+const botContainer = document.querySelector<HTMLDivElement>('.player_right')!;
+const playerIcon = document.querySelector<HTMLDivElement>('.player__icon')!;
+const playerUse = document.querySelector<SVGUseElement>('.circle-icon__use_left')!;
+const playerText = document.querySelector<HTMLParagraphElement>('.player__text_left')!;
 
-function getRelativePosition(element: HTMLElement) {
-  return {x: element.offsetLeft, y: element.offsetTop};
+
+
+
+
+function movePlayerIcon(movableElement: HTMLElement, destElement: HTMLElement ):void {
+  const offsetX = destElement.offsetLeft - movableElement.offsetLeft;
+  const offsetY = destElement.offsetTop - movableElement.offsetTop;
+  movableElement.style.translate = `${offsetX}px ${offsetY}px`;
+}
+
+function changeIcon(button: HTMLButtonElement, useElement: SVGUseElement) {
+  let url: string;
+  switch(button.dataset.gesture) {
+    case 'paper':
+      url = `${paper}#paper`;
+      break;
+    case 'scissors':
+      url = `${scissors}#scissors`;
+      break;
+    case 'rock':
+      url = `${rock}#rock`;
+      break;
+    default:
+      url = '';
+      break;
+  }
+  useElement.setAttribute('href', url);
+
+
+}
+
+function toggleScreens(firstElem: HTMLElement, secondElem: HTMLElement): void {
+  if (firstElem.classList.contains('hidden')) {
+    firstElem.classList.remove('hidden');
+    secondElem.classList.add('hidden');
+  } else {
+    firstElem.classList.add('hidden');
+    secondElem.classList.remove('hidden');
+  }
 }
 
 startContainer.addEventListener('click', (evt: MouseEvent) => {
   const target = evt.target;
-  if (!(target instanceof HTMLElement) || !(target.classList.contains('gesture'))) {
+  if (!(target instanceof HTMLButtonElement) || !(target.classList.contains('circle-icon'))) {
     return;
   }
-  const relPosStart = getRelativePosition(target);
-  startContainer.classList.add('hidden');
-  board.classList.remove('hidden');
-  const relPosChoice = getRelativePosition(choiceIconMine);
-  const offsetX = relPosStart.x - relPosChoice.x;
-  const offsetY = relPosStart.y - relPosChoice.y;
-  choiceIconMine.style.translate=  `${offsetX}px ${offsetY}px`;
+  toggleScreens(startContainer, board);
+  movePlayerIcon(playerIcon, target);
+
   setTimeout(() => {
-    choiceIconMine.classList.add('choice__icon_animated');
-    choiceIconMine.style.translate = '0';
+    playerIcon.classList.add('player__icon_animated');
+    playerIcon.style.translate = '0';
+    botContainer.classList.add('player_visible');
+    playerText.classList.add('player__text_visible');
   }, 100);
+  changeIcon(target, playerUse);
+
+
 
 
 })
