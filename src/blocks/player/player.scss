@@ -30,6 +30,15 @@
     }
   }
 
+  &__counter {
+    font-size: 135px;
+    transition: opacity 0.15s linear;
+
+    &_hidden {
+      display: none;
+    }
+  }
+
   &_right {
     opacity: 0;
     transition: opacity 0.15s linear;

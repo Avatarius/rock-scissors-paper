@@ -16,6 +16,11 @@
     inline-size: 65%;
     block-size: 65%;
     pointer-events: none;
+
+    &_hidden {
+      display: none;
+    }
+
   }
 
   &__use {
