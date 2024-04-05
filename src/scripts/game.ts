@@ -1,4 +1,4 @@
-import { Gesture } from "./types";
+import { Gesture } from "./type";
 
 function chooseBotGesture(gestureArray: Gesture[]) {
   const item = gestureArray[Math.floor(Math.random() * gestureArray.length)];

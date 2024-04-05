@@ -1,5 +1,5 @@
 import "../pages/index.scss";
-import { Gesture } from "./types";
+import { Gesture } from "./type";
 import { chooseBotGesture } from "./game";
 import { gestureArray } from "./constants";
 import paper from "../images/paper.svg";
