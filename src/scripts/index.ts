@@ -8,8 +8,9 @@ import scissors from "../images/scissors.svg";
 
 const startContainer = document.querySelector<HTMLDivElement>(".start-screen")!;
 const board = document.querySelector<HTMLDivElement>(".board")!;
-const boardContainer = document.querySelector<HTMLDivElement>('.board__container')!;
-const boardText = document.querySelector<HTMLParagraphElement>('.board__text')!;
+const boardContainer =
+  document.querySelector<HTMLDivElement>(".board__container")!;
+const boardText = document.querySelector<HTMLParagraphElement>(".board__text")!;
 const botContainer = document.querySelector<HTMLDivElement>(".player_right")!;
 const playerIcon = document.querySelector<HTMLDivElement>(".player__icon")!;
 const playerUse = document.querySelector<SVGUseElement>(
@@ -23,15 +24,16 @@ const botSvg = document.querySelector<SVGElement>(".circle-icon__svg_bot")!;
 const botUse = document.querySelector<SVGUseElement>(
   ".circle-icon__use_right"
 )!;
-const buttonRestart = document.querySelector<HTMLButtonElement>('.board__restart')!;
+const buttonRestart =
+  document.querySelector<HTMLButtonElement>(".board__restart")!;
+const scoreCounter = document.querySelector<HTMLParagraphElement>('.score__counter')!;
 
 let playerGesture: Gesture;
 let botGesture: Gesture;
 
-function moveIcon(
-  movableElement: HTMLElement,
-  destElement: HTMLElement
-): void {
+let score = 0;
+
+function moveIcon(movableElement: HTMLElement, destElement: HTMLElement): void {
   const offsetX = destElement.offsetLeft - movableElement.offsetLeft;
   const offsetY = destElement.offsetTop - movableElement.offsetTop;
   movableElement.style.translate = `${offsetX}px ${offsetY}px`;
@@ -57,45 +59,47 @@ function changeIcon(gesture: Gesture, useElement: SVGUseElement) {
 }
 
 function clearIcon(useElement: SVGUseElement) {
-  useElement.setAttribute("href", '');
+  useElement.setAttribute("href", "");
+}
+
+function movePlayerIconBack() {
+  playerIcon.classList.add("player__icon_animated");
+  playerIcon.style.translate = "0";
 }
 
 function showBoardElements() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      playerIcon.classList.add("player__icon_animated");
-      playerIcon.style.translate = "0";
-      botContainer.classList.remove("player_hidden");
-      playerText.classList.remove("player__text_hidden");
-      resolve("");
-    }, delayIconAnimation);
-  });
+  botContainer.classList.remove("player_hidden");
+  playerText.classList.remove("player__text_hidden");
 }
 
-function countdown(ms: number) {
-  return new Promise((resolve) => {
-    let counter = 3;
+function countdown(ms: number, callback: () => void) {
+  let counter = 3;
+  botCounter.textContent = counter.toString();
+  let timerId = setTimeout(function tick() {
+    counter--;
+    if (counter === 0) {
+      clearInterval(timerId);
+      callback();
+      return;
+    }
     botCounter.textContent = counter.toString();
-    let timerId = setTimeout(function tick() {
-      counter--;
-      if (counter === 0) {
-        clearInterval(timerId);
-        resolve("");
-        return;
-      }
-      botCounter.textContent = counter.toString();
-      timerId = setTimeout(tick, ms);
-    }, ms);
-  });
+    timerId = setTimeout(tick, ms);
+  }, ms);
+}
+
+function updateScore() {
+  score++;
+  scoreCounter.textContent = score.toString();
 }
 
 function showMessage(result: number, element: HTMLParagraphElement): void {
-  switch(result) {
+  switch (result) {
     case 0:
-      element.textContent = 'draw';
+      element.textContent = "draw";
       break;
     case 1:
-      element.textContent = 'You win';
+      element.textContent = "You win";
+      updateScore();
       break;
     case -1:
       element.textContent = "You lose";
@@ -107,8 +111,7 @@ function toggleScreens(firstElem: HTMLElement, secondElem: HTMLElement): void {
   const firstClassName = firstElem.classList[0];
   const firstHiddenClassName = `${firstClassName}_hidden`;
   const secondClassName = secondElem.classList[0];
-  const secondHiddenClassName=  `${secondClassName}_hidden`;
-
+  const secondHiddenClassName = `${secondClassName}_hidden`;
 
   if (firstElem.classList.contains(firstHiddenClassName)) {
     firstElem.classList.remove(firstHiddenClassName);
@@ -120,40 +123,38 @@ function toggleScreens(firstElem: HTMLElement, secondElem: HTMLElement): void {
 }
 
 function animateButtonOnRestart(button: HTMLButtonElement) {
-  /* return new Promise((resolve) => {
-    setTimeout(() => {
-      button.classList.add('start-screen__button_animated');
-      button.style.translate = '0';
-      button.addEventListener('transitionend', () => {
-        resolve('');
-      });
-    }, delayIconAnimation)
-  }) */
   setTimeout(() => {
-    button.classList.add('start-screen__button_animated');
-    button.style.translate = '0';
-  }, delayIconAnimation)
+    button.classList.add("start-screen__button_animated");
+    button.style.translate = "0";
+  }, delayIconAnimation);
 }
 
 function restart() {
   clearIcon(playerUse);
   clearIcon(botUse);
-  botContainer.classList.add('player_hidden');
-  playerText.classList.add('player__text_hidden');
+  botContainer.classList.add("player_hidden");
+  playerText.classList.add("player__text_hidden");
   botCounter.classList.remove("player__counter_hidden");
   botSvg.classList.add("circle-icon__svg_hidden");
-  boardContainer.classList.remove('board__container_expanded');
+  boardContainer.classList.remove("board__container_expanded");
   playerIcon.classList.remove("player__icon_animated");
   toggleScreens(startContainer, board);
-  const gestureButton = document.querySelector<HTMLButtonElement>(`.start-screen__button_${playerGesture}`);
+  const gestureButton = document.querySelector<HTMLButtonElement>(
+    `.start-screen__button_${playerGesture}`
+  );
   if (!gestureButton) return;
   moveIcon(gestureButton, playerIcon);
   animateButtonOnRestart(gestureButton);
-  gestureButton.addEventListener('transitionend', () => {
-    gestureButton.classList.remove('start-screen__button_animated');
-  });
+}
 
-
+function handleBotChoice() {
+  botGesture = getBotGesture(gestureArray);
+  botCounter.classList.add("player__counter_hidden");
+  botSvg.classList.remove("circle-icon__svg_hidden");
+  changeIcon(botGesture, botUse);
+  boardContainer.classList.add("board__container_expanded");
+  const result = compareGestures(playerGesture, botGesture);
+  showMessage(result, boardText);
 }
 
 startContainer.addEventListener("click", (evt: MouseEvent) => {
@@ -169,25 +170,22 @@ startContainer.addEventListener("click", (evt: MouseEvent) => {
   playerGesture = getPlayerGesture(target);
   toggleScreens(startContainer, board);
   moveIcon(playerIcon, target);
-
   changeIcon(playerGesture, playerUse);
 
-  // отобразить элементы board через 0.1 секунды
-  showBoardElements()
-    .then(() => {
-      return countdown(850);
-    })
-    .then(() => {
-      // бот выбирает жест
-      botGesture = getBotGesture(gestureArray);
-      botCounter.classList.add("player__counter_hidden");
-      botSvg.classList.remove("circle-icon__svg_hidden");
-      changeIcon(botGesture, botUse);
-      boardContainer.classList.add('board__container_expanded');
-      const result = compareGestures(playerGesture, botGesture);
-      showMessage(result, boardText);
-    });
+  setTimeout(() => {
+    showBoardElements();
+    movePlayerIconBack();
+  }, delayIconAnimation);
 });
 
+playerIcon.addEventListener("transitionend", () => {
+  countdown(850, handleBotChoice);
+});
 
-buttonRestart.addEventListener('click' , restart);
+startContainer.addEventListener("transitionend", (evt) => {
+  const target = evt.target;
+  if (!target || !(target instanceof HTMLButtonElement)) return;
+  target.classList.remove("start-screen__button_animated");
+});
+
+buttonRestart.addEventListener("click", restart);
