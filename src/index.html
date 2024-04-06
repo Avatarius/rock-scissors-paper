@@ -15,44 +15,47 @@
     </header>
     <main class="main">
       <section class="start-screen">
-        <button class="circle-icon start-screen__button start-screen__button_paper" data-gesture="paper">
+        <button class="button circle-icon start-screen__button start-screen__button_paper" data-gesture="paper">
           <svg class="circle-icon__svg">
             <use href="<%=require('./images/paper.svg')%>#paper" class="circle-icon__use"></use>
           </svg>
         </button>
-        <button class="circle-icon start-screen__button start-screen__button_scissors" data-gesture="scissors">
+        <button class="button circle-icon start-screen__button start-screen__button_scissors" data-gesture="scissors">
           <svg class="circle-icon__svg">
             <use href="<%=require('./images/scissors.svg')%>#scissors" class="circle-icon__use"></use>
           </svg>
         </button>
-        <button class="circle-icon start-screen__button start-screen__button_rock" data-gesture="rock">
+        <button class="button circle-icon start-screen__button start-screen__button_rock" data-gesture="rock">
           <svg class="circle-icon__svg">
             <use href="<%=require('./images/rock.svg')%>#rock" class="circle-icon__use"></use>
           </svg>
         </button>
       </section>
-      <section class="board hidden">
-        <div class="player player_left">
-          <p class="player__text player__text_left">You picked</p>
-          <div class="circle-icon player__icon">
-            <svg class="circle-icon__svg">
-              <use href="" class="circle-icon__use circle-icon__use_left"></use>
-            </svg>
+      <section class="board board_hidden">
+        <div class="board__container">
+          <div class="player player_left">
+            <p class="player__text player__text_left">You picked</p>
+            <div class="circle-icon player__icon">
+              <svg class="circle-icon__svg">
+                <use href="" class="circle-icon__use circle-icon__use_left"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="board__result">
+            <p class="board__text"></p>
+            <button class="button board__restart">restart</button>
+          </div>
+          <div class="player player_right">
+            <p class="player__text player__text_right">The house picked</p>
+            <div class="circle-icon player__icon">
+              <p class="player__counter"></p>
+              <svg class="circle-icon__svg circle-icon__svg_bot circle-icon__svg_hidden">
+                <use href="" class="circle-icon__use circle-icon__use_right"></use>
+              </svg>
+            </div>
           </div>
         </div>
-        <div class="board__result">
-          <p class="board__text">You win</p>
-          <button class="board__restart">restart</button>
-        </div>
-        <div class="player player_right">
-          <p class="player__text player__text_right">The house picked</p>
-          <div class="circle-icon player__icon">
-            <p class="player__counter"></p>
-            <svg class="circle-icon__svg circle-icon__svg_bot circle-icon__svg_hidden">
-              <use href="" class="circle-icon__use circle-icon__use_right"></use>
-            </svg>
-          </div>
-        </div>
+
       </section>
     </main>
   </body>

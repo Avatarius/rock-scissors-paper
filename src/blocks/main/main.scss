@@ -1,7 +1,8 @@
+@use '../../mixins/layout.scss' as *;
+
+
 .main {
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox-centered;
   position: relative;
 }

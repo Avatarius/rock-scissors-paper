@@ -1,15 +1,12 @@
+@use '../../mixins/layout.scss' as *;
+
+
 .circle-icon {
-  appearance: none;
   border: 2px solid #fff;
-  background-color: transparent;
   inline-size: 200px;
   block-size: 200px;
   border-radius: 100%;
-  transition: background-color 0.15s linear, scale 0.15s linear;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox-centered;
 
   &__svg {
     transition: fill 0.15s linear;
@@ -20,12 +17,9 @@
     &_hidden {
       display: none;
     }
-
   }
 
   &__use {
     transition: color 0.15s linear;
   }
-
-
 }

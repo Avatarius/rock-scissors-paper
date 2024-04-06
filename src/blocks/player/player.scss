@@ -1,8 +1,9 @@
+@use '../../mixins/layout.scss' as *;
+
+
 .player {
-  display: flex;
+  @include flexbox-centered;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 20px;
   inline-size: 100%;
   transition: opacity 0.15s 0.15s linear;

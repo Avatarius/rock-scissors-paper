@@ -1,16 +1,32 @@
+@use '../../mixins/layout.scss' as *;
+
 .board {
   position: absolute;
   inset: 0;
-  z-index: -2;
-  display: grid;
-  grid-template-columns: 240px 0 240px;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
+  @include flexbox-centered;
+
+  &_hidden {
+    visibility: hidden;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: 250px 0fr 250px;
+    transition: grid-template-columns 0.2s linear;
+    @include section-centered;
+    gap: 50px;
+
+    &_expanded {
+      grid-template-columns: 250px 1fr 250px;
+    }
+  }
 
   &__result {
     inline-size: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    @include section-centered;
   }
 
   &__text {
@@ -19,18 +35,14 @@
     text-align: center;
     margin-block-end: 10px;
     text-transform: uppercase;
+    min-inline-size: 300px;
   }
 
   &__restart {
-    appearance: none;
-    cursor: pointer;
     inline-size: 300px;
     block-size: 50px;
-    background-color: transparent;
-    border: 1px solid #fff;
     border-radius: 12px;
     font-size: 30px;
     text-transform: uppercase;
-
   }
 }

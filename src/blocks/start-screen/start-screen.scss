@@ -1,23 +1,21 @@
+@use '../../mixins/layout.scss' as *;
+
 .start-screen {
   display: grid;
+  @include section-centered;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
-  'paper scissors'
-  'rock rock';
-  justify-content: center;
-  align-items: center;
+    "paper scissors"
+    "rock rock";
   column-gap: 100px;
   row-gap: 40px;
 
+  &_hidden {
+    visibility: hidden;
+  }
+
   &__button {
-    cursor: pointer;
-
-    &:hover {
-      background-color: #fff;
-      // scale: 1.07;
-    }
-
     &:hover svg use {
       color: #000;
     }
@@ -35,44 +33,4 @@
       justify-self: center;
     }
   }
-  /* &__button {
-    appearance: none;
-    border: 2px solid #fff;
-    background-color: transparent;
-    inline-size: 200px;
-    block-size: 200px;
-    border-radius: 100%;
-    transition: background-color 0.15s linear, scale 0.15s linear;
-    cursor: pointer;
-
-    & svg {
-      transition: fill 0.15s linear;
-      inline-size: 65%;
-      block-size: 65%;
-    }
-
-    &:hover {
-      background-color: #fff;
-      scale: 1.07;
-    }
-
-    &:hover svg {
-      fill: #000;
-    }
-
-
-    &_paper {
-      grid-area: paper;
-    }
-
-    &_scissors {
-      grid-area: scissors;
-    }
-
-    &_rock {
-      grid-area: rock;
-      justify-self: center;
-    }
-  } */
-
 }

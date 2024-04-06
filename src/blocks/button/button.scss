@@ -1,0 +1,14 @@
+.button {
+  appearance: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  transition: background-color 0.15s linear, color 0.15s linear;
+
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+}

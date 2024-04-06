@@ -1,8 +1,8 @@
+@use '../../mixins/layout.scss' as *;
+
 .score {
-  display: flex;
+  @include flexbox-centered;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding: 20px 30px;
   background-color: #fff;
   color: #000;
