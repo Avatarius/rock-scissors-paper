@@ -63,8 +63,8 @@ function showBoardElements() {
     setTimeout(() => {
       playerIcon.classList.add("player__icon_animated");
       playerIcon.style.translate = "0";
-      botContainer.classList.add("player_visible");
-      playerText.classList.add("player__text_visible");
+      botContainer.classList.remove("player_hidden");
+      playerText.classList.remove("player__text_hidden");
       resolve("");
     }, 250);
   });
@@ -121,7 +121,13 @@ function restart() {
   console.log('restart');
   clearIcon(playerUse);
   clearIcon(botUse);
-
+  botContainer.classList.add('player_hidden');
+  playerText.classList.add('player__text_hidden');
+  botCounter.classList.remove("player__counter_hidden");
+  botSvg.classList.add("circle-icon__svg_hidden");
+  boardContainer.classList.remove('board__container_expanded');
+  playerIcon.classList.remove("player__icon_animated");
+  toggleScreens(startContainer, board);
 }
 
 startContainer.addEventListener("click", (evt: MouseEvent) => {

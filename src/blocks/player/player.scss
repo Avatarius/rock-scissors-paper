@@ -1,5 +1,4 @@
-@use '../../mixins/layout.scss' as *;
-
+@use "../../mixins/layout.scss" as *;
 
 .player {
   @include flexbox-centered;
@@ -14,12 +13,11 @@
     text-align: center;
 
     &_left {
-      opacity: 0;
       transition: opacity 0.15s linear;
     }
 
-    &_visible {
-      opacity: 1;
+    &_hidden {
+      opacity: 0;
     }
   }
 
@@ -41,11 +39,13 @@
   }
 
   &_right {
-    opacity: 0;
     transition: opacity 0.15s linear;
   }
 
-  &_visible {
+  /* &_visible {
     opacity: 1;
+  } */
+  &_hidden {
+    opacity: 0;
   }
 }
