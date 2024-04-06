@@ -25,7 +25,10 @@ const botUse = document.querySelector<SVGUseElement>(
 )!;
 const buttonRestart = document.querySelector<HTMLButtonElement>('.board__restart')!;
 
-function movePlayerIcon(
+let playerGesture: Gesture;
+let botGesture: Gesture;
+
+function moveIcon(
   movableElement: HTMLElement,
   destElement: HTMLElement
 ): void {
@@ -118,7 +121,6 @@ function toggleScreens(firstElem: HTMLElement, secondElem: HTMLElement): void {
 }
 
 function restart() {
-  console.log('restart');
   clearIcon(playerUse);
   clearIcon(botUse);
   botContainer.classList.add('player_hidden');
@@ -128,6 +130,10 @@ function restart() {
   boardContainer.classList.remove('board__container_expanded');
   playerIcon.classList.remove("player__icon_animated");
   toggleScreens(startContainer, board);
+  const gestureButton = document.querySelector<HTMLButtonElement>(`.start-screen__button_${playerGesture}`);
+  if (!gestureButton) return;
+  moveIcon(gestureButton, playerIcon);
+
 }
 
 startContainer.addEventListener("click", (evt: MouseEvent) => {
@@ -138,12 +144,11 @@ startContainer.addEventListener("click", (evt: MouseEvent) => {
   ) {
     return;
   }
-  let playerGesture: Gesture;
-  let botGesture: Gesture;
+
   // игрок выбирает жест
   playerGesture = getPlayerGesture(target);
   toggleScreens(startContainer, board);
-  movePlayerIcon(playerIcon, target);
+  moveIcon(playerIcon, target);
 
   changeIcon(playerGesture, playerUse);
   // отобразить элементы board через 0.1 секунды
