@@ -20,6 +20,10 @@
       color: #000;
     }
 
+    &_animated {
+      transition: translate 0.2s linear;
+    }
+
     &_paper {
       grid-area: paper;
     }

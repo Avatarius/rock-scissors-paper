@@ -1,7 +1,7 @@
 import "../pages/index.scss";
 import { Gesture } from "./type";
 import { getPlayerGesture, getBotGesture, compareGestures } from "./game";
-import { gestureArray } from "./constants";
+import { delayIconAnimation, gestureArray } from "./constants";
 import paper from "../images/paper.svg";
 import rock from "../images/rock.svg";
 import scissors from "../images/scissors.svg";
@@ -53,7 +53,6 @@ function changeIcon(gesture: Gesture, useElement: SVGUseElement) {
       url = "";
       break;
   }
-
   useElement.setAttribute("href", url);
 }
 
@@ -69,7 +68,7 @@ function showBoardElements() {
       botContainer.classList.remove("player_hidden");
       playerText.classList.remove("player__text_hidden");
       resolve("");
-    }, 250);
+    }, delayIconAnimation);
   });
 }
 
@@ -120,6 +119,22 @@ function toggleScreens(firstElem: HTMLElement, secondElem: HTMLElement): void {
   }
 }
 
+function animateButtonOnRestart(button: HTMLButtonElement) {
+  /* return new Promise((resolve) => {
+    setTimeout(() => {
+      button.classList.add('start-screen__button_animated');
+      button.style.translate = '0';
+      button.addEventListener('transitionend', () => {
+        resolve('');
+      });
+    }, delayIconAnimation)
+  }) */
+  setTimeout(() => {
+    button.classList.add('start-screen__button_animated');
+    button.style.translate = '0';
+  }, delayIconAnimation)
+}
+
 function restart() {
   clearIcon(playerUse);
   clearIcon(botUse);
@@ -133,6 +148,11 @@ function restart() {
   const gestureButton = document.querySelector<HTMLButtonElement>(`.start-screen__button_${playerGesture}`);
   if (!gestureButton) return;
   moveIcon(gestureButton, playerIcon);
+  animateButtonOnRestart(gestureButton);
+  gestureButton.addEventListener('transitionend', () => {
+    gestureButton.classList.remove('start-screen__button_animated');
+  });
+
 
 }
 
@@ -151,6 +171,7 @@ startContainer.addEventListener("click", (evt: MouseEvent) => {
   moveIcon(playerIcon, target);
 
   changeIcon(playerGesture, playerUse);
+
   // отобразить элементы board через 0.1 секунды
   showBoardElements()
     .then(() => {
@@ -165,7 +186,6 @@ startContainer.addEventListener("click", (evt: MouseEvent) => {
       boardContainer.classList.add('board__container_expanded');
       const result = compareGestures(playerGesture, botGesture);
       showMessage(result, boardText);
-
     });
 });
 
