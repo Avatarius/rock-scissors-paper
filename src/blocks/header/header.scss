@@ -1,19 +1,16 @@
-@use '../../mixins/layout.scss' as *;
-
+@use "../../less/mixins/layout.scss" as *;
 
 .header {
-  padding: 35px 25px;
-  border: 1px solid rgba(255 255 255 / 0.4);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid rgba(255 255 255 / 0.4);
   border-radius: 20px;
+  padding: clamp(0.938rem, 0.341rem + 2.545vw, 1.563rem);
   &__title {
-    font-size: 35px;
     font-weight: 400;
-    max-inline-size: 200px;
+    font-size: clamp(1.563rem, 0.966rem + 2.545vw, 2.188rem);
     text-transform: uppercase;
+    max-inline-size: 200px;
   }
 }
-
-

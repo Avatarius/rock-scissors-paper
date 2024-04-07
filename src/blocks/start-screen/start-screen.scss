@@ -1,15 +1,15 @@
-@use '../../mixins/layout.scss' as *;
+@use "../../less/mixins/layout.scss" as *;
 
 .start-screen {
   display: grid;
-  @include section-centered;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
     "paper scissors"
     "rock rock";
-  column-gap: 100px;
   row-gap: 40px;
+  column-gap: 100px;
+  @include section-centered;
 
   &_hidden {
     visibility: hidden;

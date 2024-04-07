@@ -1,19 +1,19 @@
-@use '../../mixins/layout.scss' as *;
+@use "../../less/mixins/layout.scss" as *;
 
 .score {
-  @include flexbox-centered;
   flex-direction: column;
-  padding: 20px 30px;
-  background-color: #fff;
-  color: #000;
-  border-radius: 15px;
   gap: 15px;
+  border-radius: clamp(0.625rem, 0.327rem + 1.272vw, 0.938rem);
+  padding: clamp(0.813rem, 0.395rem + 1.781vw, 1.25rem);
+  color: #000;
+  background-color: #fff;
+  @include flexbox-centered;
   &__title {
-    font-size: 22px;
+    font-size: clamp(0.75rem, 0.154rem + 2.545vw, 1.375rem);
   }
 
   &__counter {
-    font-size: 55px;
     font-weight: 700;
+    font-size: clamp(2rem, 0.628rem + 5.852vw, 3.438rem);
   }
 }

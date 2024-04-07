@@ -1,4 +1,4 @@
-@use '../../mixins/layout.scss' as *;
+@use "../../less/mixins/layout.scss" as *;
 
 .board {
   position: absolute;
@@ -11,38 +11,38 @@
 
   &__container {
     display: grid;
-    grid-template-columns: 250px 0fr 250px;
-    transition: grid-template-columns 0.2s linear;
+    grid-template-columns: var(--icon-size, 200px) 0fr var(--icon-size, 200px);
+    gap: clamp(1.25rem, -0.539rem + 7.634vw, 3.125rem);
+    transition: grid-template-columns 0.2s linear, gap 0.2s 0.05s linear;
     @include section-centered;
-    gap: 50px;
 
     &_expanded {
-      grid-template-columns: 250px 1fr 250px;
+      grid-template-columns: var(--icon-size, 200px) 1fr var(--icon-size, 200px);
+      gap: 0;
     }
   }
 
   &__result {
-    inline-size: 100%;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    inline-size: 100%;
     @include section-centered;
   }
 
   &__text {
-    font-size: 60px;
-    font-weight: 700;
-    text-align: center;
     margin-block-end: 10px;
+    font-size: clamp(1.125rem, -1.38rem + 10.687vw, 3.75rem);
+    text-align: center;
     text-transform: uppercase;
     min-inline-size: 400px;
   }
 
   &__restart {
-    inline-size: 300px;
-    block-size: 50px;
-    border-radius: 12px;
-    font-size: 30px;
+    border-radius: clamp(0.438rem, 0.139rem + 1.272vw, 0.75rem);
+    font-size: clamp(0.813rem, -0.201rem + 4.326vw, 1.875rem);
     text-transform: uppercase;
+    padding-inline: clamp(0.938rem, -2.641rem + 15.267vw, 4.688rem);
+    padding-block: clamp(0.313rem, -0.105rem + 1.781vw, 0.75rem);
   }
 }

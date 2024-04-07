@@ -138,6 +138,7 @@ function restart() {
   botSvg.classList.add("circle-icon__svg_hidden");
   boardContainer.classList.remove("board__container_expanded");
   playerIcon.classList.remove("player__icon_animated");
+  botCounter.textContent = '';
   toggleScreens(startContainer, board);
   const gestureButton = document.querySelector<HTMLButtonElement>(
     `.start-screen__button_${playerGesture}`
@@ -179,7 +180,7 @@ startContainer.addEventListener("click", (evt: MouseEvent) => {
 });
 
 playerIcon.addEventListener("transitionend", () => {
-  countdown(850, handleBotChoice);
+  countdown(500, handleBotChoice);
 });
 
 startContainer.addEventListener("transitionend", (evt) => {
